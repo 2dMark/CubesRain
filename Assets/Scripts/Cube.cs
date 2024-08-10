@@ -28,14 +28,13 @@ public class Cube : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.TryGetComponent(out Platform _))
-            if (_isTimerStart == false)
+        if (_isTimerStart == false)
+            if (collision.collider.TryGetComponent(out Platform _))
             {
                 _isTimerStart = true;
 
                 SetRandomColor();
                 StartCoroutine(Timer());
-
             }
     }
 

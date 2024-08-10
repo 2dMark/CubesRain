@@ -2,14 +2,14 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CubePool))]
-[RequireComponent (typeof(Collider))]
+[RequireComponent(typeof(Collider))]
 
 public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] private CubePool _cubePool;
     [SerializeField] private float _spawnTime;
 
-    private Coroutine _coroutine;
+    private float _startDelay = .1f;
     private Collider _collider;
 
     private void Awake()
@@ -19,29 +19,15 @@ public class CubeSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        _coroutine = StartCoroutine(SpawnerWork());
-    }
-
-    private void OnDisable()
-    {
-        StopCoroutine(_coroutine);
-    }
-
-    private void Spawn()
-    {
-        float randomCoordinateX = Random.Range(_collider.bounds.min.x, _collider.bounds.max.x);
-        float randomCoordinateZ = Random.Range(_collider.bounds.min.z, _collider.bounds.max.z);
-        Vector3 randomPosition = new(randomCoordinateX, transform.position.y, randomCoordinateZ);
-        Cube cube = _cubePool.Get();
-
-        cube.transform.position = randomPosition;
+        StartCoroutine(SpawnerWork());
     }
 
     private IEnumerator SpawnerWork()
     {
         WaitForSeconds spawnTime = new(_spawnTime);
+        WaitForSeconds startDelay = new(_startDelay);
 
-        yield return spawnTime;
+        yield return startDelay;
 
         while (enabled)
         {
@@ -49,5 +35,21 @@ public class CubeSpawner : MonoBehaviour
 
             yield return spawnTime;
         }
+    }
+
+    private void Spawn()
+    {
+        Cube cube = _cubePool.Get();
+
+        cube.transform.position = GetRandomPosition();
+    }
+
+    private Vector3 GetRandomPosition()
+    {
+        float randomCoordinateX = Random.Range(_collider.bounds.min.x, _collider.bounds.max.x);
+        float randomCoordinateZ = Random.Range(_collider.bounds.min.z, _collider.bounds.max.z);
+        Vector3 randomPosition = new(randomCoordinateX, transform.position.y, randomCoordinateZ);
+
+        return randomPosition;
     }
 }

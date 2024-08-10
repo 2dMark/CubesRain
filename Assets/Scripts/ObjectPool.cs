@@ -7,8 +7,6 @@ public class ObjectPool<T> where T : MonoBehaviour
     private Transform _container;
     private Queue<T> _pool = new();
 
-    public int Count => _pool.Count;
-
     public ObjectPool(T prefab, Transform container)
     {
         _prefab = prefab;
@@ -19,8 +17,7 @@ public class ObjectPool<T> where T : MonoBehaviour
     {
         if (_pool.Count == 0)
         {
-            T instance = Object.Instantiate(_prefab);
-            instance.transform.parent = _container;
+            T instance = Object.Instantiate(_prefab, _container);
 
             return instance;
         }
