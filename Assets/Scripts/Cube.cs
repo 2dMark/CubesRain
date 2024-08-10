@@ -31,15 +31,15 @@ public class Cube : MonoBehaviour
         if (_isTimerStart == false)
             if (collision.collider.TryGetComponent(out Platform _))
             {
-                _isTimerStart = true;
-
                 SetRandomColor();
-                StartCoroutine(Timer());
+                StartCoroutine(StartTimer());
             }
     }
 
-    private IEnumerator Timer()
+    private IEnumerator StartTimer()
     {
+        _isTimerStart = true;
+
         WaitForSeconds timer = new(Random.Range(_minLifetime, _maxLifetime + 1));
 
         yield return timer;

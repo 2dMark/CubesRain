@@ -19,10 +19,10 @@ public class CubeSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(SpawnerWork());
+        StartCoroutine(Spawning());
     }
 
-    private IEnumerator SpawnerWork()
+    private IEnumerator Spawning()
     {
         WaitForSeconds spawnTime = new(_spawnTime);
         WaitForSeconds startDelay = new(_startDelay);
@@ -48,8 +48,7 @@ public class CubeSpawner : MonoBehaviour
     {
         float randomCoordinateX = Random.Range(_collider.bounds.min.x, _collider.bounds.max.x);
         float randomCoordinateZ = Random.Range(_collider.bounds.min.z, _collider.bounds.max.z);
-        Vector3 randomPosition = new(randomCoordinateX, transform.position.y, randomCoordinateZ);
 
-        return randomPosition;
+        return new(randomCoordinateX, transform.position.y, randomCoordinateZ);
     }
 }
