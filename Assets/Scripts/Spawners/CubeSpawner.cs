@@ -1,19 +1,22 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(CubePool))]
 [RequireComponent(typeof(Collider))]
 
-public class CubeSpawner : MonoBehaviour
+public class CubeSpawner : Spawner
 {
-    [SerializeField] private CubePool _cubePool;
     [SerializeField] private float _spawnTime;
 
-    private float _startDelay = .1f;
     private Collider _collider;
 
-    private void Awake()
+    public event Action<Cube> Spawned;
+
+    protected override void Awake()
     {
+        base.Awake();
+
         _collider = GetComponent<Collider>();
     }
 
@@ -25,23 +28,15 @@ public class CubeSpawner : MonoBehaviour
     private IEnumerator Spawning()
     {
         WaitForSeconds spawnTime = new(_spawnTime);
-        WaitForSeconds startDelay = new(_startDelay);
-
-        yield return startDelay;
 
         while (enabled)
         {
-            Spawn();
+            Spawn(GetRandomPosition(), out SpawningObject cube);
+
+            Spawned?.Invoke((Cube)cube);
 
             yield return spawnTime;
         }
-    }
-
-    private void Spawn()
-    {
-        Cube cube = _cubePool.Get();
-
-        cube.transform.position = GetRandomPosition();
     }
 
     private Vector3 GetRandomPosition()
