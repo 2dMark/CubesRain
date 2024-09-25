@@ -6,8 +6,8 @@ public class ObjectPool<T> where T : MonoBehaviour
 {
     private T _prefab;
     private Transform _container;
-    private Queue<T> _pool = new();
-    private ObjectPoolInfo _poolInfo = new();
+    private Queue<T> _pool;
+    private ObjectPoolInfo _poolInfo;
 
     public ObjectPool(T prefab, Transform container)
     {
@@ -21,7 +21,7 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     public T GetObject()
     {
-        _poolInfo.TotalObjectsAmount++;
+        _poolInfo.GetedObjectsAmount++;
         _poolInfo.ActiveObjectsAmount++;
 
         if (_pool.Count == 0)

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: f30df473e46984748a43f68e224b70ee
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _cubeSpawner: {instanceID: 0}
+  - _cubePrefab: {fileID: 8895984494651267700, guid: 5d1d042a980e01141ade30096aca132b, type: 3}
+  - _cubePoolViewer: {instanceID: 0}
+  - _bombSpawner: {instanceID: 0}
+  - _bombPrefab: {fileID: 607400660174808301, guid: 53a9d5b36a928764b917741ac97d61fe, type: 3}
+  - _bombPoolViewer: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

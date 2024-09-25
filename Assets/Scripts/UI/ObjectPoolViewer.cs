@@ -1,52 +1,44 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class ObjectPoolViewer : MonoBehaviour
 {
-    [SerializeField] private string _poolname = "pool";
-    [SerializeField] private Spawner _spawner;
+    [SerializeField] private string _poolName = "pool";
     [SerializeField] private TMP_Text _name;
-    [SerializeField] private TMP_Text _totalObjectsAmount;
+    [SerializeField] private TMP_Text GetedObjectsAmount;
     [SerializeField] private TMP_Text _createdObjectsAmount;
     [SerializeField] private TMP_Text _activeObjectsAmount;
 
+    private IObjectPoolInformable _poolInfo;
+
     private void OnValidate()
     {
-        _name.text = _poolname;
+        _name.text = _poolName;
     }
 
     private void OnEnable()
     {
-        StartCoroutine(StartOnEnableWithDelay());
+        RefreshText();
 
-        //RefreshText();
-
-        //_spawner.PoolInfo.ObjectGeted += SetTotalObjectsAmount;
-        //_spawner.PoolInfo.ObjectCreated += SetCreatedObjectsAmount;
-        //_spawner.PoolInfo.ActiveObjectsAmountChanged += SetActiveObjectsAmount;
+        _poolInfo.ObjectGeted += SetGetedObjectsAmount;
+        _poolInfo.ObjectCreated += SetCreatedObjectsAmount;
+        _poolInfo.ActiveObjectsAmountChanged += SetActiveObjectsAmount;
     }
 
     private void OnDisable()
     {
-        _spawner.PoolInfo.ObjectGeted -= SetTotalObjectsAmount;
-        _spawner.PoolInfo.ObjectCreated -= SetCreatedObjectsAmount;
-        _spawner.PoolInfo.ActiveObjectsAmountChanged -= SetActiveObjectsAmount;
+        _poolInfo.ObjectGeted -= SetGetedObjectsAmount;
+        _poolInfo.ObjectCreated -= SetCreatedObjectsAmount;
+        _poolInfo.ActiveObjectsAmountChanged -= SetActiveObjectsAmount;
     }
 
-    private IEnumerator StartOnEnableWithDelay()
+    public void Initialize(IObjectPoolInformable poolInfo)
     {
-        yield return null;
-
-        RefreshText();
-
-        _spawner.PoolInfo.ObjectGeted += SetTotalObjectsAmount;
-        _spawner.PoolInfo.ObjectCreated += SetCreatedObjectsAmount;
-        _spawner.PoolInfo.ActiveObjectsAmountChanged += SetActiveObjectsAmount;
+        _poolInfo = poolInfo;
     }
 
-    private void SetTotalObjectsAmount(float value)
-        => _totalObjectsAmount.text = $"Total: {value}";
+    private void SetGetedObjectsAmount(float value)
+        => GetedObjectsAmount.text = $"Geted: {value}";
 
     private void SetCreatedObjectsAmount(float value)
         => _createdObjectsAmount.text = $"Created: {value}";
@@ -56,8 +48,8 @@ public class ObjectPoolViewer : MonoBehaviour
 
     private void RefreshText()
     {
-        SetTotalObjectsAmount(_spawner.PoolInfo.TotalObjectsAmount);
-        SetCreatedObjectsAmount(_spawner.PoolInfo.CreatedObjectsAmount);
-        SetActiveObjectsAmount(_spawner.PoolInfo.ActiveObjectsAmount);
+        SetGetedObjectsAmount(_poolInfo.GetedObjectsAmount);
+        SetCreatedObjectsAmount(_poolInfo.CreatedObjectsAmount);
+        SetActiveObjectsAmount(_poolInfo.ActiveObjectsAmount);
     }
 }

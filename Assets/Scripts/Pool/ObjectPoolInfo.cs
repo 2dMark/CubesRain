@@ -1,8 +1,9 @@
 using System;
+using UnityEngine;
 
 public class ObjectPoolInfo : IObjectPoolInformable
 {
-    private float _totalObjectsAmount = 0;
+    private float _getedObjectsAmount = 0;
     private float _createdObjectsAmount = 0;
     private float _activeObjectsAmount = 0;
 
@@ -10,17 +11,17 @@ public class ObjectPoolInfo : IObjectPoolInformable
     public event Action<float> ObjectCreated;
     public event Action<float> ActiveObjectsAmountChanged;
 
-    public float TotalObjectsAmount
+    public float GetedObjectsAmount
     {
         get
         {
-            return _totalObjectsAmount;
+            return _getedObjectsAmount;
         }
         set
         {
-            _totalObjectsAmount = value;
+            _getedObjectsAmount = value;
 
-            ObjectGeted?.Invoke(_totalObjectsAmount);
+            ObjectGeted?.Invoke(_getedObjectsAmount);
         }
     }
 

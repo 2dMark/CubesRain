@@ -14,6 +14,8 @@ public class BombSpawner : Spawner
         _cubeSpawner.Spawned -= AddListener;
     }
 
+    public override void Initialize() => _objectPool = new(_prefab, transform);
+
     private void AddListener(SpawningObject cube) => cube.Returned += SpawnOnCubePosition;
 
     private void RemoveListener(SpawningObject cube) => cube.Returned -= SpawnOnCubePosition;

@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 1002882756785056214}
   - component: {fileID: 5280222260048217237}
   m_Layer: 5
-  m_Name: TotalAmount
+  m_Name: GetedAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Total: - '
+  m_text: 'Geted: - '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -664,9 +664,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7dfb0452facca4ea501edccc195412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolname: pool
-  _spawner: {fileID: 0}
+  _poolName: pool
   _name: {fileID: 8465286080545295522}
-  _totalObjectsAmount: {fileID: 5280222260048217237}
+  GetedObjectsAmount: {fileID: 5280222260048217237}
   _createdObjectsAmount: {fileID: 6950379123601231682}
   _activeObjectsAmount: {fileID: 6432052791034094955}

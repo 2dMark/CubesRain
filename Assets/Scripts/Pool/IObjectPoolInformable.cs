@@ -6,7 +6,7 @@ public interface IObjectPoolInformable
     public event Action<float> ObjectCreated;
     public event Action<float> ActiveObjectsAmountChanged;
 
-    public float TotalObjectsAmount { get;}
+    public float GetedObjectsAmount { get;}
 
     public float CreatedObjectsAmount { get;}
 
