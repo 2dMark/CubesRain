@@ -10,7 +10,7 @@ public abstract class Spawner : MonoBehaviour
 
     public abstract void Initialize();
 
-    public virtual void Spawn(Vector3 position, out SpawningObject instance)
+    protected void Spawn(Vector3 position, out SpawningObject instance)
     {
         instance = _objectPool.GetObject();
         instance.transform.position = position;
@@ -20,7 +20,7 @@ public abstract class Spawner : MonoBehaviour
         instance.gameObject.SetActive(true);
     }
 
-    protected void Return(SpawningObject instance)
+    private void Return(SpawningObject instance)
     {
         instance.Returned -= Return;
 

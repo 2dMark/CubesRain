@@ -15,7 +15,7 @@ public class CubeSpawner : Spawner
 
     private void OnEnable()
     {
-            StartCoroutine(Spawning());
+        StartCoroutine(Spawning());
     }
 
     private IEnumerator Spawning()

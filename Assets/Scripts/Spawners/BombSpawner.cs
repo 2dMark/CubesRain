@@ -18,11 +18,10 @@ public class BombSpawner : Spawner
 
     private void AddListener(SpawningObject cube) => cube.Returned += SpawnOnCubePosition;
 
-    private void RemoveListener(SpawningObject cube) => cube.Returned -= SpawnOnCubePosition;
-
     private void SpawnOnCubePosition(SpawningObject cube)
     {
-        RemoveListener(cube);
+        cube.Returned -= SpawnOnCubePosition;
+
         Spawn(cube.transform.position, out SpawningObject _);
     }
 }
